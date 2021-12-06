@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\img\" />
+    <Folder Include="wwwroot\img\menu\" />
+    <Folder Include="Application\" />
+    <Folder Include="Domain\" />
+    <Folder Include="Application\Service\" />
+    <Folder Include="Domain\Model\" />
+    <Folder Include="Domain\Repository\" />
+    <Folder Include="Infrastructure\" />
+    <Folder Include="Infrastructure\Repository\" />
+    <Folder Include="Infrastructure\Entity\" />
+    <Folder Include="Presentation\" />
+    <Folder Include="Presentation\Controllers\" />
+    <Folder Include="Presentation\Request\" />
+    <Folder Include="Presentation\Response\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.4">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.4">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Contracts" Version="3.1.5" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="5.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.4" />
+    <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.22" />
+  </ItemGroup>
+</Project>

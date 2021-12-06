@@ -1,0 +1,30 @@
+﻿<Properties StartupConfiguration="{F3310183-18CA-4C2F-A096-2AF5CE27F4B0}|Default">
+  <MonoDevelop.Ide.ItemProperties.HamburgerShop PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="HamburgerShop/Startup.cs">
+    <Files>
+      <File FileName="HamburgerShop/Startup.cs" Line="42" Column="14" />
+      <File FileName="HamburgerShop/Models/ErrorViewModel.cs" Line="3" Column="11" />
+      <File FileName="HamburgerShop/Presentation/Controllers/HomeController.cs" Line="8" Column="21" />
+      <File FileName="HamburgerShop/Program.cs" Line="10" Column="24" />
+      <File FileName="HamburgerShop/Views/Shared/_Layout.cshtml" Line="8" Column="52" />
+      <File FileName="HamburgerShop/appsettings.json" Line="12" Column="20" />
+      <File FileName="HamburgerShop/Infrastructure/Entity/HamburgerShopContext.cs" Line="7" Column="46" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="HamburgerShop" expanded="True" selected="True" />
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <DisabledProjects>
+    <String>HumbergerShop/HamburgerShop.csproj</String>
+  </DisabledProjects>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
