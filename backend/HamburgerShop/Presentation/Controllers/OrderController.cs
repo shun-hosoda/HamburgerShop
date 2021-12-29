@@ -1,5 +1,4 @@
-﻿using System;
-using HamburgerShop.Application.Command;
+﻿using HamburgerShop.Application.Command;
 using HamburgerShop.Presentation.Requests;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;

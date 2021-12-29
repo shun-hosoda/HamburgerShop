@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using HamburgerShop.Models;
 using HamburgerShop.Infrastructure.Entities;
 using HamburgerShop.Application.Services;
 using HamburgerShop.Presentation.Responses;
-using HamburgerShop.Presentation.Requests;
 
 namespace HamburgerShop.Presentation.Controllers
 {
