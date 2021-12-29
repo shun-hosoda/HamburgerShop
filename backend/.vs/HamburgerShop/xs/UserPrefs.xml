@@ -1,12 +1,14 @@
 ﻿<Properties StartupConfiguration="{F3310183-18CA-4C2F-A096-2AF5CE27F4B0}|Default">
   <MonoDevelop.Ide.ItemProperties.HamburgerShop PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="HamburgerShop/Presentation/Controllers/OrderController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="HamburgerShop/Infrastructure/Repositories/ItemRepository.cs">
     <Files>
       <File FileName="HamburgerShop/Presentation/Controllers/MenuController.cs" Line="31" Column="21" />
-      <File FileName="HamburgerShop/Presentation/Controllers/OrderController.cs" Line="25" Column="19" />
+      <File FileName="HamburgerShop/Presentation/Controllers/OrderController.cs" Line="33" Column="10" />
       <File FileName="HamburgerShop/Presentation/Requests/OrderRequest.cs" Line="13" Column="9" />
       <File FileName="HamburgerShop/Application/DTO/OrderDetailDTO.cs" Line="14" Column="39" />
       <File FileName="HamburgerShop/Application/Command/OrderCommand.cs" Line="44" Column="20" />
+      <File FileName="HamburgerShop/Infrastructure/Repositories/OrderDetailRepository.cs" Line="1" Column="1" />
+      <File FileName="HamburgerShop/Infrastructure/Repositories/ItemRepository.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -27,13 +29,13 @@
               </Node>
               <Node name="Infrastructure" expanded="True">
                 <Node name="Entities" expanded="True" />
-                <Node name="Repositories" expanded="True" />
+                <Node name="Repositories" expanded="True">
+                  <Node name="ItemRepository.cs" selected="True" />
+                </Node>
               </Node>
               <Node name="Models" expanded="True" />
               <Node name="Presentation" expanded="True">
-                <Node name="Controllers" expanded="True">
-                  <Node name="OrderController.cs" selected="True" />
-                </Node>
+                <Node name="Controllers" expanded="True" />
                 <Node name="Requests" expanded="True" />
                 <Node name="Responses" expanded="True" />
               </Node>
