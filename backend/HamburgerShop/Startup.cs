@@ -9,19 +9,25 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-using HamburgerShop.Infrastructure.Entity;
+using HamburgerShop.Infrastructure.Entities;
+using HamburgerShop.Domain.Repositories;
+using HamburgerShop.Infrastructure.Repositories;
+using HamburgerShop.Application.Services;
+using HamburgerShop.Application.Command;
 
 namespace HamburgerShop
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
-
+        
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -29,6 +35,22 @@ namespace HamburgerShop
 
             services.AddDbContext<HamburgerShopContext>(options =>
                     options.UseMySQL(Configuration.GetConnectionString("MySqlContext")));
+
+            services.AddTransient<IItemRepository, ItemRepository>();
+            services.AddTransient<IOrderTypeRepository, OrderTypeRepository>();
+            services.AddTransient<IPaymentTypeRepository, PaymentTypeRepository>();
+            services.AddTransient<ITaxTypeRepository, TaxTypeRepository>();
+            services.AddTransient<IOrderRepository, OrderRepository>();
+            services.AddTransient<IOrderDetailRepository, OrderDetailRepository>();
+            services.AddTransient<MenuQuery>();
+            services.AddTransient<OrderCommand>();
+
+            services.AddCors(o => o.AddPolicy(MyAllowSpecificOrigins, builder =>
+            {
+                builder.AllowAnyOrigin()    // すべてのオリジンからの CORS 要求を許可
+                       .AllowAnyMethod()    // すべての HTTP メソッドを許可
+                       .AllowAnyHeader();   // すべての作成者要求ヘッダーを許可
+            }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,12 +73,12 @@ namespace HamburgerShop
 
             app.UseAuthorization();
 
-            //app.UseEndpoints(endpoints =>
-            //{
-            //    endpoints.MapControllerRoute(
-            //        name: "default",
-            //        pattern: "{controller=Home}/{action=Index}/{id?}");
-            //});
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Menu}/");
+            });
         }
     }
 }

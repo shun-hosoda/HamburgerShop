@@ -9,16 +9,18 @@
     <Folder Include="wwwroot\img\menu\" />
     <Folder Include="Application\" />
     <Folder Include="Domain\" />
-    <Folder Include="Application\Service\" />
-    <Folder Include="Domain\Model\" />
-    <Folder Include="Domain\Repository\" />
+    <Folder Include="Application\Query\" />
+    <Folder Include="Domain\Models\" />
+    <Folder Include="Domain\Repositories\" />
     <Folder Include="Infrastructure\" />
-    <Folder Include="Infrastructure\Repository\" />
-    <Folder Include="Infrastructure\Entity\" />
+    <Folder Include="Infrastructure\Repositories\" />
+    <Folder Include="Infrastructure\Entities\" />
     <Folder Include="Presentation\" />
     <Folder Include="Presentation\Controllers\" />
-    <Folder Include="Presentation\Request\" />
-    <Folder Include="Presentation\Response\" />
+    <Folder Include="Presentation\Requests\" />
+    <Folder Include="Presentation\Responses\" />
+    <Folder Include="Application\Command\" />
+    <Folder Include="Application\DTO\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.4">
@@ -33,5 +35,6 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="5.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.4" />
     <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.22" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Cors" Version="5.2.7" />
   </ItemGroup>
 </Project>
