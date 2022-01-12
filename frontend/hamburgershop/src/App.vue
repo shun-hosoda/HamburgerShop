@@ -6,38 +6,9 @@
       dark
     >
       <div class="d-flex align-center">
-        <!-- <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        /> -->
         <div class="text-h5 font-weight-bold">Hamburger Shop</div>
       </div>
-
-      <v-spacer></v-spacer>
-      <router-link to="/about">
-        <v-btn
-          target="_blank"
-          text
-        >
-          <span class="mr-2">Latest Release</span>
-          <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-      </router-link>
     </v-app-bar>
-
     <v-main>
       <router-view/>
     </v-main>
@@ -49,9 +20,5 @@ import Vue from 'vue';
 
 export default Vue.extend({
   name: 'App',
-
-  data: () => ({
-    //
-  }),
 });
 </script>
