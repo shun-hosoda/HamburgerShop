@@ -1,4 +1,4 @@
-# humbergershop
+# hamburgershop
 
 ## Project setup
 ```

@@ -45,12 +45,16 @@ namespace HamburgerShop
             services.AddTransient<MenuQuery>();
             services.AddTransient<OrderCommand>();
 
-            services.AddCors(o => o.AddPolicy(MyAllowSpecificOrigins, builder =>
+            services.AddCors(options =>
             {
-                builder.AllowAnyOrigin()    // すべてのオリジンからの CORS 要求を許可
-                       .AllowAnyMethod()    // すべての HTTP メソッドを許可
-                       .AllowAnyHeader();   // すべての作成者要求ヘッダーを許可
-            }));
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.WithOrigins("http://localhost:8080");
+                    builder.AllowAnyMethod();
+                    builder.AllowAnyHeader();
+                    builder.AllowCredentials();
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,14 +75,16 @@ namespace HamburgerShop
 
             app.UseRouting();
 
+            app.UseCors();
+
             app.UseAuthorization();
 
-            //app.UseEndpoints(endpoints =>
-            //{
-            //    endpoints.MapControllerRoute(
-            //        name: "default",
-            //        pattern: "{controller=Home}/{action=Menu}/");
-            //});
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Menu}/");
+            });
         }
     }
 }
