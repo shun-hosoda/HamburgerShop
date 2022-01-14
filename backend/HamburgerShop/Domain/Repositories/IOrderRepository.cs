@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using HamburgerShop.Domain.Models;
+using HamburgerShop.Infrastructure.Entities;
 
 namespace HamburgerShop.Domain.Repositories
 {
@@ -11,5 +13,11 @@ namespace HamburgerShop.Domain.Repositories
         /// <param name="model"></param>
         /// <returns></returns>
         Order Register(Order order);
+
+        /// <summary>
+        /// オーダー取得
+        /// </summary>
+        /// <returns>オーダーリスト</returns>
+        List<Orders> GetAllOrders();
     }
 }

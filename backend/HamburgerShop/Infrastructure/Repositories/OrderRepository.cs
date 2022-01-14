@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using HamburgerShop.Domain.Models;
 using HamburgerShop.Domain.Repositories;
@@ -19,6 +21,8 @@ namespace HamburgerShop.Infrastructure.Repositories
         }
         #endregion
 
+        #region public
+
         #region Register
         /// <summary>
         /// オーダーデータ登録
@@ -36,6 +40,21 @@ namespace HamburgerShop.Infrastructure.Repositories
             return EntityToModel(entity);
         }
         #endregion
+
+        #region GetAllOrders
+        /// <summary>
+        /// オーダー取得
+        /// </summary>
+        /// <returns>オーダーリスト</returns>
+        public List<Orders> GetAllOrders()
+        {
+            return _context.Orders.ToList();
+        }
+        #endregion
+
+        #endregion
+
+        #region private
 
         #region ModelToEntity
         /// <summary>
@@ -70,6 +89,8 @@ namespace HamburgerShop.Infrastructure.Repositories
             return new Order(orders.OrderId, orders.PaymentTypeId, orders.TaxTypeId, orders.OrderNumber,
                 orders.FinalTotal, orders.Tax, orders.PaymentAmount, orders.PaymentRefund, orders.OrderDate);
         }
+        #endregion
+
         #endregion
     }
 }

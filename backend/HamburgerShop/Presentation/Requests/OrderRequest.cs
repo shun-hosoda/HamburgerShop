@@ -7,18 +7,18 @@ namespace HamburgerShop.Presentation.Requests
     public class OrderRequest
     {
         /// <summary>支払タイプID</summary>
-        public int PaymentTypeId { get; set; }
+        public int paymentTypeId { get; set; }
         /// <summary>消費税区分ID</summary>
-        public int TaxTypeId { get; set; }
+        public int taxTypeId { get; set; }
         /// <summary>合計</summary>
-        public int FinalTotal { get; set; }
+        public int finalTotal { get; set; }
         /// <summary>消費税</summary>
-        public int Tax { get; set; }
+        public int tax { get; set; }
         /// <summary>支払額</summary>
-        public int PaymentAmount { get; set; }
+        public int paymentAmount { get; set; }
         /// <summary>お釣り</summary>
-        public int PaymentRefund { get; set; }
+        public int paymentRefund { get; set; }
         /// <summary>注文詳細</summary>
-        public List<OrderDetailDTO> OrderDetailDTOList { get; set; } = new List<OrderDetailDTO>();
+        public List<OrderDetailDTO> orderDetailDTOList { get; set; } = new List<OrderDetailDTO>();
     }
 }

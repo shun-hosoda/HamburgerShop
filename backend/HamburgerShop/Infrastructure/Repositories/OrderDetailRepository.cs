@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using HamburgerShop.Domain.Models;
 using HamburgerShop.Domain.Repositories;
 using HamburgerShop.Infrastructure.Entities;
@@ -31,6 +32,17 @@ namespace HamburgerShop.Infrastructure.Repositories
                 OrderDetails entity = ModelToEntity(model);
                 RegisterOrderDetail(entity);
             }
+        }
+        #endregion
+
+        #region GetOrderDetailByOrderId
+        /// <summary>
+        /// オーダー詳細取得
+        /// </summary>
+        /// <returns>オーダー詳細リスト</returns>
+        public List<OrderDetails> GetOrderDetailByOrderId(int orderId)
+        {
+            return _context.OrderDetails.Where(x => x.OrderId == orderId).ToList();
         }
         #endregion
 

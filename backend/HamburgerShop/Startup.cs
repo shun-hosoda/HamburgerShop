@@ -14,6 +14,7 @@ using HamburgerShop.Domain.Repositories;
 using HamburgerShop.Infrastructure.Repositories;
 using HamburgerShop.Application.Services;
 using HamburgerShop.Application.Command;
+using HamburgerShop.Application.Query;
 
 namespace HamburgerShop
 {
@@ -44,6 +45,7 @@ namespace HamburgerShop
             services.AddTransient<IOrderDetailRepository, OrderDetailRepository>();
             services.AddTransient<MenuQuery>();
             services.AddTransient<OrderCommand>();
+            services.AddTransient<OrderQuery>();
 
             services.AddCors(options =>
             {
