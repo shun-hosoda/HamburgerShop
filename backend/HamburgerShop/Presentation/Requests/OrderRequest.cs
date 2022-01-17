@@ -19,6 +19,6 @@ namespace HamburgerShop.Presentation.Requests
         /// <summary>お釣り</summary>
         public int paymentRefund { get; set; }
         /// <summary>注文詳細</summary>
-        public List<OrderDetailDTO> orderDetailDTOList { get; set; } = new List<OrderDetailDTO>();
+        public List<OrderDetailDTO> orderDetailList { get; set; } = new List<OrderDetailDTO>();
     }
 }

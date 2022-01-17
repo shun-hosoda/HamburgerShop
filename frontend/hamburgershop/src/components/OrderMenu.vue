@@ -1,5 +1,22 @@
 <template>
   <v-container>
+    <v-snackbar
+        v-model="snackbar"
+        :centered="true"
+        :color="snackbarColor"
+      >
+      {{ snackbarText }}
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="white"
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
     <v-row justify="center" class="mt-2">
       <v-col cols="12" md="8">
         <!-- メニュー -->
@@ -25,23 +42,23 @@
           </v-row>
           <v-row class="ma-0 px-5">
             <!-- 商品 -->
-            <v-col  cols="4" v-for="item in items" v-bind:key="item.id" class="mb-4">
+            <v-col  cols="4" v-for="item in items" v-bind:key="item.id" class="mb-4 pa-1 pa-sm-2">
               <v-card height="100%">
-                <v-div class="pa-5 d-flex justify-center">
+                <div class="pa-3 pa-sm-5 d-flex justify-center">
                   <v-img
-                  max-height="auto"
                   :src=item.imgLink
+                  contain
                 ></v-img>
-                </v-div>
+                </div>
                 
                 <v-divider></v-divider>
-                <v-card-title style="font-size: 1rem !important; font-weight: 600;">{{item.name}}</v-card-title>
+                <v-card-title class="text-caption text-md-subtitle-1 pa-2 pa-sm-4" style="font-weight: 600;">{{item.name}}</v-card-title>
                 <v-card-text>
                   <v-row>
-                    <v-col class="d-flex align-center">
+                    <v-col cols="6" class="d-flex align-center text-caption text-md-subtitle-1 pa-2 pa-sm-4">
                       {{item.taxIncludedPrice}}円(税込み)
                     </v-col>
-                    <v-col class="d-flex align-center justify-end">
+                    <v-col cols="6" class="d-flex align-center justify-end text-caption text-md-subtitle-1 pa-2 pa-sm-4">
                       <v-btn
                       fab
                       dark
@@ -121,6 +138,7 @@
         <!-- /オーダー -->
       </v-col>
     </v-row>
+    
   </v-container>
 </template>
 
@@ -165,7 +183,10 @@
     components: {
     },
   })
-  export default class HellowWorld extends Vue{
+  export default class OrderMenu extends Vue{
+    snackbar = false
+    snackbarText = ''
+    snackbarColor = 'primary'
     orderTypeRadio = 1
     paymentTypeRadio = 1
     orderTypes: OrderType[] = []
@@ -183,64 +204,6 @@
       { text: '', sortable: false, value: 'actions', width: "20%" }, 
       { text: '価格', sortable: false, value: 'totalPrice', width: "30%" },
     ]
-    orderType1: OrderType = {
-      id: 1,
-      name: "店内",
-      taxId: 2
-    }
-    orderType2: OrderType = {
-      id: 2,
-      name: "持ち帰り",
-      taxId: 1
-    }
-    paymentType1: PaymentType = {
-      id: 1,
-      name: "現金"
-    }
-    paymentType2: PaymentType = {
-      id: 2,
-      name: "クレジット"
-    }
-    paymentType3: PaymentType = {
-      id: 3,
-      name: "QRコード"
-    }
-    taxType1: TaxType ={
-      id: 1,
-      rate: 0.08
-    }
-    taxType2: TaxType ={
-      id: 2,
-      rate: 0.1
-    }
-    item1: Item = {
-      id: 1,
-      name: "ハンバーガー",
-      unitPrice: 100,
-      taxIncludedPrice: 0,
-      imgLink: "",
-    }
-    item2: Item = {
-      id: 2,
-      name: "チーズバーガー",
-      unitPrice: 120,
-      taxIncludedPrice: 0,
-      imgLink: "",
-    }
-    item3: Item = {
-      id: 3,
-      name: "フィレオフィッシュ",
-      unitPrice: 140,
-      taxIncludedPrice: 0,
-      imgLink: "",
-    }
-    item4: Item = {
-      id: 4,
-      name: "ダブルバーガー",
-      unitPrice: 140,
-      taxIncludedPrice: 0,
-      imgLink: "",
-    }
     created(){
       this.getMenuData()
     }
@@ -260,21 +223,28 @@
       const param: any =
         {
           paymentTypeId: this.paymentTypeRadio,
-          taxTipeId: this.taxTypeId,
+          taxTypeId: this.taxTypeId,
           finalTotal: this.orderTotal,
           tax: this.orderTax,
           paymentAmount: this.orderTotal,
           paymentRefund: 0,
-          OrderDetailDTOList: orderDetails
+          OrderDetailList: orderDetails
         }
       
       console.log("param", param)
       await http.post(url, param)
       .then(response => {
         console.log("getMenuDataResponse",response)
+        this.snackbarText = '商品を購入しました。'
+        this.snackbarColor = 'primary'
+        this.snackbar = true
+        this.orders = []
       })
       .catch((e) => {
         console.log("error",e)
+        this.snackbarText = 'エラーが発生しました。'
+        this.snackbarColor = 'error'
+        this.snackbar = true
       })
     }
     async getMenuData(){
@@ -322,6 +292,7 @@
         this.taxTypes.push(taxType)
         if(el.taxId === defaultOrderType.taxId){
           this.taxRate = el.taxRate
+          this.taxTypeId = el.taxId
         }
       });
       // 商品設定
@@ -345,6 +316,8 @@
       // 消費税率設定
       this.taxRate = taxType === undefined ? 0 : taxType.rate
       this.taxTypeId = taxType === undefined ? 0 : taxType.id
+      console.log("taxType",taxType)
+      console.log("taxTypeId",this.taxTypeId)
       // メニューの消費税込み価格の変更
       this.items.forEach((x) => {
         x.taxIncludedPrice = this.calcTaxIncludedPrice(x.unitPrice)

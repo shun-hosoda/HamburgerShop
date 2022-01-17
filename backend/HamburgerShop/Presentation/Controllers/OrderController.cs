@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using HamburgerShop.Application.Command;
+using HamburgerShop.Application.DTO;
 using HamburgerShop.Application.Query;
 using HamburgerShop.Infrastructure.Entities;
 using HamburgerShop.Presentation.Requests;
@@ -9,6 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace HamburgerShop.Presentation.Controllers
 {
+    [ApiController]
     public class OrderController : ControllerBase
     {
         #region プロパティ
@@ -36,7 +38,7 @@ namespace HamburgerShop.Presentation.Controllers
         {
             // 注文データ登録
             _orderCommand.RegisterOrder(req.paymentTypeId, req.taxTypeId,
-                req.finalTotal, req.tax, req.paymentAmount, req.paymentRefund, req.orderDetailDTOList);
+                req.finalTotal, req.tax, req.paymentAmount, req.paymentRefund, req.orderDetailList);
 
             return Ok();
         }
@@ -64,10 +66,10 @@ namespace HamburgerShop.Presentation.Controllers
         #region GetOrderDetail
         [HttpGet]
         [Route("/hamburgershop/orderDetail")]
-        public IActionResult GetOrderDetail([FromBody] OrderDetailRequest req)
+        public IActionResult GetOrderDetail(int orderId)
         {
             // 注文詳細リスト取得
-            List<OrderDetails> orderDetails = _orderQuery.GetOrderDetailByOrderId(req.orderId);
+            List<OrderDetailDTO> orderDetails = _orderQuery.GetOrderDetailByOrderId(orderId);
 
             // レスポンス
             OrderDetailResponse response = new OrderDetailResponse();

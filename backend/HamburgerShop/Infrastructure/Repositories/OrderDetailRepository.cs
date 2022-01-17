@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using HamburgerShop.Application.DTO;
 using HamburgerShop.Domain.Models;
 using HamburgerShop.Domain.Repositories;
 using HamburgerShop.Infrastructure.Entities;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace HamburgerShop.Infrastructure.Repositories
 {
@@ -35,17 +37,6 @@ namespace HamburgerShop.Infrastructure.Repositories
         }
         #endregion
 
-        #region GetOrderDetailByOrderId
-        /// <summary>
-        /// オーダー詳細取得
-        /// </summary>
-        /// <returns>オーダー詳細リスト</returns>
-        public List<OrderDetails> GetOrderDetailByOrderId(int orderId)
-        {
-            return _context.OrderDetails.Where(x => x.OrderId == orderId).ToList();
-        }
-        #endregion
-
         #region RegisterOrderDetail
         /// <summary>
         /// オーダー詳細登録
@@ -55,6 +46,30 @@ namespace HamburgerShop.Infrastructure.Repositories
         {
             _context.OrderDetails.AddAsync(entity);
             _context.SaveChangesAsync();
+        }
+        #endregion
+
+        #region GetOrderDetailByOrderId
+        /// <summary>
+        /// オーダー詳細取得
+        /// </summary>
+        /// <returns>オーダー詳細リスト</returns>
+        public List<OrderDetailDTO> GetOrderDetailByOrderId(int orderId)
+        {
+            var result = _context.OrderDetails.Where(x => x.OrderId == orderId).Join(
+                        _context.Items,
+                        orderDetail => orderDetail.ItemId,
+                        item => item.ItemId,
+                        (orderDetail, item) => new OrderDetailDTO()
+                        {
+                            ItemId = orderDetail.ItemId,
+                            ItemName = item.ItemName,
+                            Quantity = orderDetail.Quantity,
+                            Total = orderDetail.Total,
+                        }
+                    ).ToList();
+
+            return result;
         }
         #endregion
 

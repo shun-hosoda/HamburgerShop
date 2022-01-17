@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using HamburgerShop.Application.DTO;
 using HamburgerShop.Domain.Repositories;
 using HamburgerShop.Infrastructure.Entities;
 
@@ -41,7 +42,7 @@ namespace HamburgerShop.Application.Query
         /// オーダー詳細取得
         /// </summary>
         /// <returns>オーダー詳細リスト</returns>
-        public List<OrderDetails> GetOrderDetailByOrderId(int orderId)
+        public List<OrderDetailDTO> GetOrderDetailByOrderId(int orderId)
         {
             return _orderDetailRepo.GetOrderDetailByOrderId(orderId);
         }

@@ -18,7 +18,7 @@
                                 @click="selectOrder(order)"
                                 >
                                     <v-list-item-content>
-                                        <v-list-item-title v-text="order.id"></v-list-item-title>
+                                        <v-list-item-title v-text="order.orderNumber"></v-list-item-title>
                                     </v-list-item-content>
                                 </v-list-item>
                             </v-list-item-group>
@@ -63,8 +63,8 @@
 
   interface Order{
     id: number,
-    totalPrice: number,
-    tax: number
+    orderNumber: string,
+    total: number
   }
 
   interface OrderDetail{
@@ -77,29 +77,106 @@
     components: {
     },
   })
-  export default class HellowWorld extends Vue{
+  export default class History extends Vue{
     orders: Order[] = []
     orderDetails: OrderDetail[] = []
     orderTotal = 0
     selectedItem = 0
+    selectedOrderId = -1
     headers: DataTableHeader[] = [
       { text: '商品名', align: 'start', value: 'itemName', width: "50%" },
       { text: '個数', sortable: false, value: 'quantity', width: "25%" }, 
       { text: '価格', sortable: false, value: 'totalPrice', width: "25%" },
     ]
     
-    order1: Order = {id: 1, totalPrice: 110, tax: 10} 
-    order2: Order = {id: 2, totalPrice: 220, tax: 20} 
-
-    created(){
-        this.orders.push(this.order1)
-        this.orders.push(this.order2)
+    mounted(){
+        this.getOrder()
+    }
+    /**
+     * オーダー取得
+     */
+    getOrder(){
+        const url = "/hamburgershop/order"
+        http.get(url)
+        .then(response => {
+            this.setOrderTable(response.data)
+            // オーダー履歴がある場合は配列の0番目のオーダー詳細取得
+            if(0 < this.orders.length){
+                this.getOrderDetail(this.orders[0])
+            }
+        })
+        .catch((e) => {
+            console.log("error",e)
+        })
+    }
+    /**
+     * オーダーリスト配列に設定
+     */
+    setOrderTable(data: any){
+        data.orderList.forEach(el => {
+        let order: Order = {
+          id: el.orderId,
+          orderNumber: el.orderNumber,
+          total: el.finalTotal
+        }
+        this.orders.push(order)
+      });
+    }
+    /**
+     * オーダー詳細取得
+     */
+    getOrderDetail(order: Order){
+        // 初期化
+        this.orderDetails = []
+        this.orderTotal = 0
+        // 選択→選択解除の場合はリターン
+        if(this.selectedOrderId === order.id){
+            this.selectedOrderId = 0
+            return
+        }
+        this.selectedOrderId = order.id
+        const url = "/hamburgershop/orderDetail"
+        const params: any =
+            {
+                params:{
+                    orderId: order.id
+                }
+            }
+        console.log("param", params)
+        http.get(url, params)
+        .then(response => {
+            console.log("response",response)
+            // オーダー詳細取得
+            this.setOrderDetailTable(response.data)
+            // 合計金額設定
+            this.orderTotal = order.total
+        })
+        .catch((e) => {
+            console.log("error",e)
+        })
     }
 
-    selectOrder(order:Order){
-        let orderDetail: OrderDetail = { id: 1, itemName: "ハンバーガー", quantity :1, totalPrice: 100}
+    /**
+     * オーダー詳細リスト配列に設定
+     */
+    setOrderDetailTable(data: any){
+        data.orderDetailList.forEach(el => {
+            console.log("setOrderDetailTable el", el)
+            let orderDetail: OrderDetail = {
+            id: el.orderDetailId,
+            itemName: el.itemName,
+            quantity: el.quantity,
+            totalPrice: el.total
+        }
         this.orderDetails.push(orderDetail)
+      });
     }
-    
+    /**
+     * オーダー選択時の処理
+     */
+    selectOrder(order: Order){
+        // オーダー詳細取得
+        this.getOrderDetail(order)
+    }
   }
 </script>

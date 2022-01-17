@@ -5,7 +5,7 @@ const apiClient: AxiosInstance = axios.create({
   baseURL: "https://localhost:5001",
   // リクエストヘッダ
   headers: {
-    'Accept':'application/json',
+    // 'Accept':'application/json',
     "Content-type": "application/json",
   },
 });

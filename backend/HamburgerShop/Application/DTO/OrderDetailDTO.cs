@@ -3,11 +3,10 @@ namespace HamburgerShop.Application.DTO
 {
     public class OrderDetailDTO
     {
-        public OrderDetailDTO()
-        {
-        }
         /// <summary>商品ID</summary>
         public int ItemId { get; set; }
+        /// <summary>商品名</summary>
+        public string ItemName { get; set; }
         /// <summary>注文数</summary>
         public int Quantity { get; set; }
         /// <summary>合計</summary>
