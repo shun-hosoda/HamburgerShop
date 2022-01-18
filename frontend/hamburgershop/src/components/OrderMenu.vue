@@ -129,7 +129,7 @@
           </v-row>
           <v-row  class="ma-0">
             <v-col>
-              <v-btn color="primary" @click="purchase()">
+              <v-btn color="primary" @click="onClickPurchase()">
                 購入
               </v-btn>
             </v-col>
@@ -207,7 +207,10 @@
     created(){
       this.getMenuData()
     }
-    async purchase(){
+    /**
+     * 初期画面設定
+     */
+    async onClickPurchase(){
       console.log("RadioGroup", this.orderTypeRadio)
       console.log("SelectOrderType", this.orderTypes[this.orderTypeRadio - 1])
       const url = "/hamburgershop/order/register"
@@ -239,6 +242,10 @@
         this.snackbarColor = 'primary'
         this.snackbar = true
         this.orders = []
+        this.orderTotal = 0
+        this.orderTypeRadio = 1
+        this.paymentTypeRadio = 1
+        this.onChangeOrderType(this.orderTypes[this.orderTypeRadio - 1])
       })
       .catch((e) => {
         console.log("error",e)
@@ -247,6 +254,9 @@
         this.snackbar = true
       })
     }
+    /**
+     * メニュー取得
+     */
     async getMenuData(){
       console.log("getMenuData")
       const url = "/hamburgershop/menu"
@@ -259,10 +269,11 @@
         console.log("error",e)
       })
     }
-    // 初期画面設定
+    /**
+     * 初期画面設定
+     */
     init(menuData:any){
       let defaultOrderType: OrderType
-      let taxType: TaxType
       // オーダータイプ設定
       menuData.orderTypeList.forEach(el => {
         let orderType: OrderType ={
